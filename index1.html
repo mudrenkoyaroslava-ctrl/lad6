@@ -24,7 +24,7 @@
             // В реальності тут був би шлях до PHP файлу, наприклад 'server.php'
             $.ajax({
                 type: 'POST',
-                url: '#', // Тут має бути адреса сервера (наприклад, form_handler.php)
+                url: 'server.php', // Тут має бути адреса сервера (наприклад, form_handler.php)
                 data: formData,
                 success: function(response) {
                     // Ця функція запуститься, якщо все пройшло успішно
@@ -37,4 +37,5 @@
             });
         });
     });
+
 </script>
