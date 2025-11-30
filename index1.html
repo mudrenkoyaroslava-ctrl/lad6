@@ -1,0 +1,40 @@
+<hr>
+<h2>Завдання 3: Анкета (AJAX)</h2>
+
+<form id="myForm">
+    <label>Ім'я: <input type="text" name="username" required></label><br><br>
+    <label>Email: <input type="email" name="useremail" required></label><br><br>
+    <button type="submit">Надіслати анкету</button>
+</form>
+
+<div id="form-result" style="color: green; margin-top: 10px;"></div>
+
+<script>
+    $(document).ready(function() {
+        // Слухаємо подію відправки форми (submit)
+        $('#myForm').submit(function(e) {
+            
+            // 1. Скасовуємо стандартну поведінку (щоб сторінка НЕ перезавантажувалась)
+            e.preventDefault();
+
+            // 2. Збираємо дані з форми автоматично
+            let formData = $(this).serialize();
+
+            // 3. Відправляємо дані (імітація). 
+            // В реальності тут був би шлях до PHP файлу, наприклад 'server.php'
+            $.ajax({
+                type: 'POST',
+                url: '#', // Тут має бути адреса сервера (наприклад, form_handler.php)
+                data: formData,
+                success: function(response) {
+                    // Ця функція запуститься, якщо все пройшло успішно
+                    $('#form-result').text('Дані успішно відправлено без перезавантаження!');
+                    console.log('Відправлені дані:', formData);
+                },
+                error: function() {
+                    $('#form-result').css('color', 'red').text('Помилка відправки.');
+                }
+            });
+        });
+    });
+</script>

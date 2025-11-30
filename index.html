@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторна 7 - Завдання 2</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #joke-container { 
+            margin-top: 20px; 
+            padding: 15px; 
+            border: 1px solid #ccc; 
+            background: #f9f9f9; 
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Генератор жартів</h2>
+    <button id="get-joke-btn">Отримати жарт</button>
+    
+    <div id="joke-container">Натисніть кнопку, щоб побачити жарт...</div>
+
+    <script>
+        $(document).ready(function() {
+            // Коли натискаємо на кнопку з id="get-joke-btn"
+            $('#get-joke-btn').click(function() {
+                
+                // Використовуємо jQuery команду $.get, щоб прочитати файл
+                $.get('jokes.txt', function(data) {
+                    
+                    // 1. Розбиваємо весь текст на окремі рядки (по ентеру \n)
+                    let jokesArray = data.split('\n');
+                    
+                    // 2. Фільтруємо пусті рядки (якщо раптом є пустий рядок в кінці файлу)
+                    jokesArray = jokesArray.filter(line => line.trim() !== '');
+
+                    // 3. Вибираємо випадковий індекс
+                    let randomIndex = Math.floor(Math.random() * jokesArray.length);
+                    
+                    // 4. Беремо текст жарту
+                    let randomJoke = jokesArray[randomIndex];
+
+                    // 5. Виводимо його в блок id="joke-container"
+                    $('#joke-container').text(randomJoke);
+                });
+
+            });
+        });
+    </script>
+</body>
+</html>
